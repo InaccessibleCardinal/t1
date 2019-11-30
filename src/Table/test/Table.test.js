@@ -19,7 +19,7 @@ describe('SortableTable component', () => {
         };
         
         const {queryByText, getByText, unmount} = render(
-            <SortableTable config={config} />,
+            <SortableTable {...config} />,
         );
 
         expect(queryByText('name')).toBeDefined();
@@ -45,7 +45,7 @@ describe('SortableTable component', () => {
         };
         
         const {queryByText, getByText, unmount} = render(
-            <SortableTable config={config} />,
+            <SortableTable {...config} />,
         );
 
         expect(queryByText(/My Value: 33 /i)).toBeDefined();

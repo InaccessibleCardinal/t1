@@ -1,4 +1,5 @@
-import {getColumnByButtonId, sortByColumn, validateConfig} from '../utils';
+import u from '../utils/';
+const {getColumnByButtonId, sortByColumn} = u;
 
 describe('getColumnByButtonId func', () => {
     it ('should return a value', () => {
@@ -48,29 +49,3 @@ describe('sortByColumn func', () => {
     
 });
 
-describe('validateConfig func', () => {
-    it('should return false', () => {
-        const config = {
-            headers: [{value: 'a'}, {value: 'b'}, {value: 'c'}],
-            rows: [{a: 1, b: 22, c: 'abc'}, {a: 101, b: 43}]
-        };
-        expect(validateConfig(config)).toBe(false);
-    });
-
-    it('should return true', () => {
-        const config = {
-            headers: [{value: 'a'}, {value: 'b'}, {value: 'c'}],
-            rows: [{a: 1, b: 22, c: 'abc'}, {a: 101, b: 43, c: 'isjfh'}]
-        };
-        expect(validateConfig(config)).toBe(true);
-    });
-});
-
-/*
-export function validateConfig(config) {
-    let {headers, rows} = config;
-    if (areKeysMismatched(headers.map(h => h.value), rows)) {
-        return false;
-    }
-}
-*/

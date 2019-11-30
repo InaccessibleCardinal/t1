@@ -1,21 +1,40 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
-import {getColumnByButtonId, sortByColumn, validateConfig} from './utils';
+import utils from './utils/';
 
-export default function SortableTable({config}) {
+const {getColumnByButtonId, sortByColumn, updateHeadersAndRows, validateHeadersAndRows} = utils;
+
+export default function SortableTable({
+    headers, 
+    rows, 
+    isSortable, 
+    className, 
+    formatting, 
+    selectiveHeaders
+}) {
     
-    const {headers, rows, isSortable, className, formatting} = config;
-    const [configIsValid, setConfigIsValid] = useState(false);
-    const [tableRowData, setTableRowData] = useState(rows);
+    const [modifiedHeaders, setModifiedHeaders] = useState(false);
+    // const [configIsValid, setConfigIsValid] = useState(false);
+    const [tableRowData, setTableRowData] = useState([]);
+    const [tableHeaderData, setTableHeaderData] = useState([]);
     const [isAsc, setIsAsc] = useState(1);
 
     useEffect(() => {
-        //if (env === PROD) {setConfigIsValid(true);} //TODO
-        if (validateConfig(config) && !configIsValid) {
-            setConfigIsValid(true);
+        
+        if (selectiveHeaders && !modifiedHeaders) {
+            const {updatedHeaders, updatedRows} = updateHeadersAndRows(headers, rows, selectiveHeaders);
+            validateHeadersAndRows(updatedHeaders, updatedRows);
+            setModifiedHeaders(true);
+            setTableRowData(updatedRows);
+            setTableHeaderData(updatedHeaders);
+        } else if (!selectiveHeaders && !modifiedHeaders) {
+            validateHeadersAndRows(headers, rows);
+            setTableRowData(rows);
+            setTableHeaderData(headers);
         }
-    }, [config, configIsValid]);
+        
+    }, [/*configIsValid, */headers, rows, modifiedHeaders, selectiveHeaders]);
 
 
     const handleClick = useCallback((e) => {
@@ -31,7 +50,7 @@ export default function SortableTable({config}) {
     
     return (
         <table className={className}>
-            <TableHeader className={className} headers={headers} handleClick={handleClick} />
+            <TableHeader className={className} headers={tableHeaderData} handleClick={handleClick} />
             <TableBody tableRowData={tableRowData} className={className} formatting={formatting} />
         </table>
     );
