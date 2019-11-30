@@ -29,6 +29,7 @@ export function validateConfig(config) {
     if (areKeysMismatched(headers.map(h => h.value), rows)) {
         return false;
     }
+    return true;
 }
 
 function areKeysMismatched(headerValues, rows) {
