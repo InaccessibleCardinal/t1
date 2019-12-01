@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {users} from './data/users';
 import SortableTable from './Table';
+
+function UsernameButton({value}) {
+    const f = useCallback((e) => {
+        console.log('id: ', e.target.id)
+    }, []);
+    return (
+        <div>
+            <button id={value} onClick={f}>Remove</button>
+        </div>
+    );
+}
 
 const config = {
     headers: Object.keys(users[0]).map((value, i) => {
@@ -13,7 +24,8 @@ const config = {
     isSortable: true,
     className: 'my-table',
     formatters: {
-        name: (v) => <h4>{v}</h4>
+        name: (v) => <h4>{v}</h4>,
+        username: (v) => <UsernameButton value={v} />
     }
 };
 
@@ -60,7 +72,7 @@ function App() {
     return (
         <div className="App">
             <SortableTable {...config} />
-    <SortableTable {...config2} />
+            <SortableTable {...config2} />
         </div>
     );
 }

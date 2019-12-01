@@ -58,7 +58,6 @@ export default function SortableTable({
                 <TableHeader 
                     className={className} 
                     headers={tableHeaderData} 
-                        
                     handleClick={handleClick} 
                 />
             </SortingContext.Provider>

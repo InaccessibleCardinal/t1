@@ -75,4 +75,4 @@ const config = {
     }
 }
 ```
-In fact, if you're trying to render data with nested objects in one of these tables, you'll *have to do something like this*, otherwise you'll get the **"Objects are not valid React children..."** error. Columns with formatters aren't sortable yet.
+In fact, if you're trying to render data with nested objects in one of these tables, you'll *have to do something like this*, otherwise you'll get the **"Objects are not valid React children..."** error. Columns with nested object formatters aren't sortable yet.
