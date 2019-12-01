@@ -56,7 +56,7 @@ The `formatters` property allows you to map the data in certain columns to custo
 const config = {
     ....
     formatters: {
-        name: (cellValue) => <h2 style={{...wahtever...}}>{cellValue}</h2> 
+        name: (cellValue) => <h2 style={{...whatever...}}>{cellValue}</h2> 
         age: (cellValue) => <button onClick={() => alert('LOL')}>{cellValue}</span>
     }
 }

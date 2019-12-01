@@ -7,7 +7,7 @@ export function sortByColumn(columnId, tableRowData, isAsc) {
             //break out to not compare sub-components even though this seems to not matter
             return 0; 
         }
-        if (valueA < valueB) { //normal comparable asci values
+        if (valueA < valueB) { //normal comparable ascii values
             return -1 * isAsc;
         } else if (valueB < valueA) {
             return 1 * isAsc;
