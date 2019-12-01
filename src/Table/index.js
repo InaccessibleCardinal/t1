@@ -40,7 +40,6 @@ export default function SortableTable({
         
     }, [headers, rows, tableIsSet]);
 
-
     const handleClick = useCallback((e) => {
         if (isSortable) {
             let column = getColumnByButtonId(e.target.id);
@@ -52,7 +51,6 @@ export default function SortableTable({
         }
     }, [isAsc, isSortable, tableRowData]);
 
-    
     return (
         
         <table className={className}>
