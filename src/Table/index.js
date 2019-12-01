@@ -3,38 +3,32 @@ import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import utils from './utils/';
 
-const {getColumnByButtonId, sortByColumn, updateHeadersAndRows, validateHeadersAndRows} = utils;
+const {getColumnByButtonId, sortByColumn, initializeTable, validateHeadersAndRows} = utils;
 
 export default function SortableTable({
     headers, 
     rows, 
     isSortable, 
     className, 
-    formatting, 
-    selectiveHeaders
+    formatters
 }) {
     
-    const [modifiedHeaders, setModifiedHeaders] = useState(false);
-    // const [configIsValid, setConfigIsValid] = useState(false);
+    const [tableIsSet, setTableIsSet] = useState(false);
     const [tableRowData, setTableRowData] = useState([]);
     const [tableHeaderData, setTableHeaderData] = useState([]);
     const [isAsc, setIsAsc] = useState(1);
 
     useEffect(() => {
-        
-        if (selectiveHeaders && !modifiedHeaders) {
-            const {updatedHeaders, updatedRows} = updateHeadersAndRows(headers, rows, selectiveHeaders);
-            validateHeadersAndRows(updatedHeaders, updatedRows);
-            setModifiedHeaders(true);
-            setTableRowData(updatedRows);
-            setTableHeaderData(updatedHeaders);
-        } else if (!selectiveHeaders && !modifiedHeaders) {
-            validateHeadersAndRows(headers, rows);
-            setTableRowData(rows);
+
+        if (!tableIsSet) {
+            const updatedRows = initializeTable(headers, rows);
+            validateHeadersAndRows(headers, updatedRows);
             setTableHeaderData(headers);
+            setTableRowData(updatedRows);
+            setTableIsSet(true);
         }
         
-    }, [/*configIsValid, */headers, rows, modifiedHeaders, selectiveHeaders]);
+    }, [headers, rows, tableIsSet]);
 
 
     const handleClick = useCallback((e) => {
@@ -51,7 +45,7 @@ export default function SortableTable({
     return (
         <table className={className}>
             <TableHeader className={className} headers={tableHeaderData} handleClick={handleClick} />
-            <TableBody tableRowData={tableRowData} className={className} formatting={formatting} />
+            <TableBody tableRowData={tableRowData} className={className} formatters={formatters} />
         </table>
     );
 }
