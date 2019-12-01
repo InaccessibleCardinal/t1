@@ -17,8 +17,10 @@ export function makeNewRow(headerValues, existingRow) {
     let l = headerValues.length;
     let newRow = {};
     for (let i = 0; i < l; ++i) {
-        let currentHeader = headerValues[i]
-        validateHeader(currentHeader, existingRow, i);
+        let currentHeader = headerValues[i];
+        if (process.env.NODE_ENV === 'development') {
+            validateHeader(currentHeader, existingRow, i);
+        }
         newRow[currentHeader] = existingRow[currentHeader];
     }
     return newRow;

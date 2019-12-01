@@ -33,9 +33,6 @@ export default function SortableTable({
 
         if (!tableIsSet) {
             const updatedRows = initializeTable(headers, rows);
-            // if (process.env.NODE_ENV === 'development' && validateHeadersAndRows(headers, updatedRows)) {
-            //     console.error(`Table validation error: ${validateHeadersAndRows(headers, updatedRows)}`);
-            // }
             setTableHeaderData(headers);
             setTableRowData(updatedRows);
             setTableIsSet(true);
