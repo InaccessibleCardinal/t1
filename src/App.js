@@ -45,9 +45,7 @@ const data2 = [
 
 ];
 const config2 = {
-    headers: Object.keys(data2[0]).map(value => {
-        return {value};
-    }),
+    headers: [{value: 'pic'}, {value: 'name'},{value: 'id'}],
     rows: data2,
     isSortable: true,
     className: 'my-table',

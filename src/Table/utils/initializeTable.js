@@ -18,6 +18,7 @@ export function makeNewRow(headerValues, existingRow) {
     let newRow = {};
     for (let i = 0; i < l; ++i) {
         let currentHeader = headerValues[i]
+        validateHeader(currentHeader, existingRow, i);
         newRow[currentHeader] = existingRow[currentHeader];
     }
     return newRow;
@@ -31,4 +32,13 @@ export function getHeaderValues(headers) {
         headerValues.push(headers[i].value);
     }
     return headerValues;
+}
+
+export function validateHeader(headerValue, row, rowIndex) {
+    if (!row[headerValue]) {
+        return new Error(
+            `The row ${JSON.stringify(row)} at row-index ${rowIndex} does not have the attribute ${headerValue}. Compare youre header values with the signatures of the objects in your table rows.`
+        );
+    }
+    return null;
 }

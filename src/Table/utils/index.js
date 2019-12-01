@@ -1,6 +1,5 @@
 import {BTN_PART} from '../constants';
 import {sortByColumn} from './sortByColumn';
-import {validateHeadersAndRows} from './validateHeadersAndRows';
 import {initializeTable} from './initializeTable';
 
 function getColumnByButtonId(buttonId) {
@@ -10,8 +9,7 @@ function getColumnByButtonId(buttonId) {
 const UTIL_FUNCS = {
     initializeTable,
     getColumnByButtonId,
-    sortByColumn,
-    validateHeadersAndRows
+    sortByColumn
 };
 
 export default UTIL_FUNCS;

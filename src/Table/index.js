@@ -4,7 +4,7 @@ import TableBody from './TableBody';
 import utils from './utils/';
 import {UPDATE_SORT} from './constants';
 
-const {getColumnByButtonId, sortByColumn, initializeTable, validateHeadersAndRows} = utils;
+const {getColumnByButtonId, sortByColumn, initializeTable} = utils;
 
 export const SortingContext = createContext();
 
@@ -33,7 +33,9 @@ export default function SortableTable({
 
         if (!tableIsSet) {
             const updatedRows = initializeTable(headers, rows);
-            validateHeadersAndRows(headers, updatedRows);
+            // if (process.env.NODE_ENV === 'development' && validateHeadersAndRows(headers, updatedRows)) {
+            //     console.error(`Table validation error: ${validateHeadersAndRows(headers, updatedRows)}`);
+            // }
             setTableHeaderData(headers);
             setTableRowData(updatedRows);
             setTableIsSet(true);
