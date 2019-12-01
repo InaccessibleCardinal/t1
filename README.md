@@ -61,7 +61,7 @@ const config = {
     }
 }
 ```
-If the values in `yourDataArray[i].name` and `yourDataArray[i].name` are strings/numbers, the above configuration will render the names and ages in the way specified by the JSX. 
+If the values in `yourDataArray[i].name` and `yourDataArray[i].age` are strings/numbers, the above configuration will render the names and ages in the way specified by the JSX. 
 
 You can even do something more elaborate:
 ```JavaScript
