@@ -15,7 +15,7 @@ describe('SortableTable component', () => {
             ],
             isSortable: false,
             className: 'my-table',
-            formatters: false
+            formatters: null
         };
         
         const {queryByText, getByText, unmount} = render(

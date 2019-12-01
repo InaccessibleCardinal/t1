@@ -1,4 +1,5 @@
 import React, {useState, useCallback, useEffect, createContext, useReducer} from 'react';
+import PropTypes from 'prop-types';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import utils from './utils/';
@@ -7,13 +8,6 @@ import {UPDATE_SORT} from './constants';
 const {getColumnByButtonId, sortByColumn, initializeTable} = utils;
 
 export const SortingContext = createContext();
-
-export function sortingReducer(state, action) {
-    if (action.type === UPDATE_SORT) {
-        return action.payload;
-    }
-    return state;
-}
 
 export default function SortableTable({
     headers, 
@@ -27,7 +21,7 @@ export default function SortableTable({
     const [tableRowData, setTableRowData] = useState([]);
     const [tableHeaderData, setTableHeaderData] = useState([]);
     const [isAsc, setIsAsc] = useState(1);
-    const [sortState, dispatch] = useReducer(sortingReducer, {asc: 1, sortedBy: ''})
+    const [sortState, dispatch] = useReducer(sortingReducer, {asc: 1, sortedBy: '', className})
 
     useEffect(() => {
 
@@ -52,20 +46,34 @@ export default function SortableTable({
     }, [isAsc, isSortable, tableRowData]);
 
     return (
-        
-        <table className={className}>
-            <SortingContext.Provider value={sortState}>
+        <SortingContext.Provider value={sortState}>
+            <table className={className}>
                 <TableHeader 
                     className={className} 
                     headers={tableHeaderData} 
                     handleClick={handleClick} 
                 />
-            </SortingContext.Provider>
-            <TableBody 
-                tableRowData={tableRowData} 
-                className={className} 
-                formatters={formatters} 
-            />
-        </table>
+                <TableBody 
+                    tableRowData={tableRowData} 
+                    className={className} 
+                    formatters={formatters} 
+                />
+            </table>
+        </SortingContext.Provider>
     );
+}
+
+SortableTable.propTypes = {
+    className: PropTypes.string,
+    formatters: PropTypes.object,
+    headers: PropTypes.arrayOf(PropTypes.object).isRequired, 
+    isSortable: PropTypes.bool, 
+    rows: PropTypes.arrayOf(PropTypes.object).isRequired
+};
+
+export function sortingReducer(state, action) {
+    if (action.type === UPDATE_SORT) {
+        return {...state, ...action.payload};
+    }
+    return state;
 }

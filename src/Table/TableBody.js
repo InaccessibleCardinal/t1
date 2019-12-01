@@ -1,15 +1,23 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import PropTypes from 'prop-types';
+import TableRow from './TableRow';
+import {SortingContext} from './index';
 
-export default function TableBody({tableRowData, className, formatters}) {
+export default function TableBody({tableRowData, formatters}) {
+    const {className} = useContext(SortingContext);
     let tableRowMarkup = [];
     let l = tableRowData.length;
     for (let i = 0; i < l; ++i) {
         //this happens every render
         //old school for-loop is faster, and not by a little
+        let ithRowData = tableRowData[i];
         tableRowMarkup.push(
-            <tr className={`${className}-row`} key={`row_${i}`}>
-                {generateRowMarkup(tableRowData[i], i, className, formatters)}
-            </tr>
+            <TableRow 
+                key={ithRowData.id ? ithRowData.id : i}
+                index={i} 
+                rowData={ithRowData} 
+                formatters={formatters} 
+            />
         );
     }
     return (
@@ -19,29 +27,7 @@ export default function TableBody({tableRowData, className, formatters}) {
     );
 }
 
-export function generateRowMarkup(item, itemIndex, className, formatters) {
-    let keys = Object.keys(item);
-    let l = keys.length;
-    let markup = [];
-    for (let i = 0; i < l; ++i) {
-        //old school for-loops are faster
-        let value = item[keys[i]];
-        let itemToRender;
-        if (formatters) {
-            if (formatters[keys[i]]) {
-                itemToRender = formatters[keys[i]](value);
-            } else {
-                itemToRender = value;
-            }
-        } else {
-            itemToRender = value;
-        }
-        markup.push(
-            <td className={`${className}-td`} key={`row_${itemIndex}_item_${i}`}>
-                {itemToRender}
-            </td>
-        );
-    }
-    return markup;
-}
-
+TableBody.propTypes = {
+    formatters: PropTypes.object,
+    tableRowData: PropTypes.arrayOf(PropTypes.object).isRequired
+};

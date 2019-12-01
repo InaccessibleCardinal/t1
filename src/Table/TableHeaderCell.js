@@ -1,9 +1,10 @@
 import React, {useContext} from 'react';
+import PropTypes from 'prop-types';
 import {SortingContext} from './index';
 import {BTN_PART} from './constants';
 
-export default function TableHeaderCell({header, className, handleClick}) {
-    const {asc, sortedBy} = useContext(SortingContext);
+export default function TableHeaderCell({header, handleClick}) {
+    const {asc, sortedBy, className} = useContext(SortingContext);
     const {value, displayValue} = header;
     const isActiveHeader = sortedBy === value;
     return (
@@ -19,6 +20,11 @@ export default function TableHeaderCell({header, className, handleClick}) {
         </th>
     );
 }
+
+TableHeaderCell.propTypes = {
+    handleClick: PropTypes.func,
+    header: PropTypes.object.isRequired
+};
 
 export function makeSortIndicatorClassName(asc, isActiveHeader, className) {
     if (!isActiveHeader) {

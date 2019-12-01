@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import PropTypes from 'prop-types';
 import TableHeaderCell from './TableHeaderCell';
+import {SortingContext} from './index';
 
-export default function TableHeader({className, headers, handleClick}) {
-
+export default function TableHeader({headers, handleClick}) {
+    const {className} = useContext(SortingContext);
     const tableHeaderMarkup = headers.map((h, i) => {
         return (
             <TableHeaderCell
                 key={i}
                 header={h} 
-                className={className} 
                 handleClick={handleClick}
             />
         );
@@ -20,3 +21,7 @@ export default function TableHeader({className, headers, handleClick}) {
     );
 }
 
+TableHeader.propTypes = {
+    handleClick: PropTypes.func,
+    headers: PropTypes.arrayOf(PropTypes.object).isRequired
+};
