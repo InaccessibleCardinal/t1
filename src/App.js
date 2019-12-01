@@ -8,7 +8,7 @@ const config = {
             value, 
             displayValue: i === 0 ? `My ${value}` : value
         }
-    }).reverse(),
+    }),
     rows: users,
     isSortable: true,
     className: 'my-table',
@@ -52,6 +52,7 @@ const config2 = {
     isSortable: true,
     className: 'my-table',
     formatters: {
+        name: (cellValue) => <button onClick={() => alert('LOL')}>{cellValue}</button>,
         pic: (v) => <ImageComp {...v} />
     }
 }
@@ -61,10 +62,9 @@ function App() {
     return (
         <div className="App">
             <SortableTable {...config} />
-            <SortableTable {...config2} />
+    <SortableTable {...config2} />
         </div>
     );
 }
 
 export default App;
-

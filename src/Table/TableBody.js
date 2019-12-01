@@ -13,7 +13,7 @@ export default function TableBody({tableRowData, className, formatters}) {
         );
     }
     return (
-        <tbody className={`${className}-table-body`}>
+        <tbody className={`${className}-body`}>
             {tableRowMarkup}
         </tbody>
     );

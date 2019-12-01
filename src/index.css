@@ -15,3 +15,21 @@ body {
   padding: 1em;
   cursor: pointer;
 }
+.my-table-header-th {
+  position: relative;
+}
+
+.my-table-header-sort-indicator {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid navy;
+}
+
+.my-table-header-sort-indicator.dsc {
+  transform: rotate(180deg);
+}
