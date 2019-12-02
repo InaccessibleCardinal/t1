@@ -25,7 +25,12 @@ TableHeaderCell.propTypes = {
     handleClick: PropTypes.func,
     header: PropTypes.object.isRequired
 };
-
+/**
+ * makeSortIndicatorClassName
+ * @param {int} asc 
+ * @param {boolean} isActiveHeader 
+ * @param {string} className 
+ */
 export function makeSortIndicatorClassName(asc, isActiveHeader, className) {
     if (!isActiveHeader) {
         return `${className}-header-sort-indicator`;

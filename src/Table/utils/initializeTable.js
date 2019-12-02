@@ -1,8 +1,22 @@
+import uuid from 'uuid/v4';
+/**
+ * initializeTable
+ * @param {[]object} headers 
+ * @param {[]object} rows 
+ */
 export function initializeTable(headers, rows) {
+    //Whatever headers are specified, and their order, determine what data gets into the table
     return makeUpdatedRows(rows, getHeaderValues(headers));
 }
-
+/**
+ * makeUpdatedRows
+ * @param {[]object} rows 
+ * @param {[]string} headerValues 
+ */
 export function makeUpdatedRows(rows, headerValues) {
+    //throughout the codebase, for-loops are used
+    //instead of array prototype methods except in cases
+    //in which rendering performance will not conceivably be impacted
     let l = rows.length;
     let newRows =[];
     for (let i = 0; i <l; ++i) {
@@ -12,10 +26,17 @@ export function makeUpdatedRows(rows, headerValues) {
     }
     return newRows;
 }
-
+/**
+ * makeNewRow
+ * @param {[]string} headerValues 
+ * @param {object} existingRow 
+ */
 export function makeNewRow(headerValues, existingRow) {
     let l = headerValues.length;
-    let newRow = {};
+    //uuids are only used here as keys for table row rerendering performance
+    //because the data may not have ids, the user might not pass them in
+    //and because array indices are bad keys for sortable lists
+    let newRow = {_id: uuid()};
     for (let i = 0; i < l; ++i) {
         let currentHeader = headerValues[i];
         if (process.env.NODE_ENV === 'development') {
@@ -25,7 +46,10 @@ export function makeNewRow(headerValues, existingRow) {
     }
     return newRow;
 }
-
+/**
+ * getHeaderValues
+ * @param {[]objects} headers 
+ */
 export function getHeaderValues(headers) {
     let l = headers.length;
     let i = 0;
@@ -35,7 +59,12 @@ export function getHeaderValues(headers) {
     }
     return headerValues;
 }
-
+/**
+ * validateHeader
+ * @param {string} headerValue 
+ * @param {object} row 
+ * @param {int} rowIndex 
+ */
 export function validateHeader(headerValue, row, rowIndex) {
     if (!row[headerValue]) {
         return new Error(

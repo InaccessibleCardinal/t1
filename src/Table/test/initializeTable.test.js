@@ -18,7 +18,9 @@ describe('makeNewRow func', () => {
     it('should make a new table row with the selected header values', () => {
         const row = {a: 1, b: 2, c: 3, d: 4, e: 0};
         const headerValues = ['a', 'c', 'd'];
-        expect(makeNewRow(headerValues, row)).toEqual({a: 1, c: 3, d: 4});
+        expect(makeNewRow(headerValues, row).a).toEqual(1);
+        expect(makeNewRow(headerValues, row).c).toEqual(3);
+        expect(makeNewRow(headerValues, row).d).toEqual(4);
     });
 });
 

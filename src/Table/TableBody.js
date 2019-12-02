@@ -13,8 +13,7 @@ export default function TableBody({formatters}) {
         let ithRowData = tableRowData[i];
         tableRowMarkup.push(
             <TableRow 
-                key={ithRowData.id ? ithRowData.id : i}
-                index={i} 
+                key={ithRowData._id}
                 rowData={ithRowData} 
                 formatters={formatters} 
             />

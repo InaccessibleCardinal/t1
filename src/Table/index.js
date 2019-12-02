@@ -69,7 +69,11 @@ SortableTable.propTypes = {
     isSortable: PropTypes.bool, 
     rows: PropTypes.arrayOf(PropTypes.object).isRequired
 };
-
+/**
+ * sortingReducer
+ * @param {object} state 
+ * @param {object} action 
+ */
 export function sortingReducer(state, action) { //lol yep that's it
     if (action.type === UPDATE_SORT) {
         return {...state, ...action.payload};

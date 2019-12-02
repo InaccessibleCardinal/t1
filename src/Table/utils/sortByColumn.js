@@ -1,3 +1,9 @@
+/**
+ * sortByColumn
+ * @param {string | number} columnId 
+ * @param {[]object} tableRowData 
+ * @param {int} isAsc 
+ */
 export function sortByColumn(columnId, tableRowData, isAsc) {
 
     return [...tableRowData].sort((a, b) => {
