@@ -55,8 +55,8 @@ export default function SortableTable({
     return (
         <SortingContext.Provider value={sortState}>
             <table className={className}>
-                <TableHeader className={className} handleClick={handleClick} />
-                <TableBody className={className} formatters={formatters} />
+                <TableHeader handleClick={handleClick} />
+                <TableBody formatters={formatters} />
             </table>
         </SortingContext.Provider>
     );
