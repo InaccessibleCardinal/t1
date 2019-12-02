@@ -6,7 +6,6 @@ import utils from './utils/';
 import {UPDATE_SORT} from './constants';
 
 const {getColumnByButtonId, sortByColumn, initializeTable} = utils;
-
 export const SortingContext = createContext();
 
 export default function SortableTable({
@@ -16,17 +15,10 @@ export default function SortableTable({
     className, 
     formatters
 }) {
-    
+
     const [sortState, dispatch] = useReducer(
         sortingReducer, 
-        {   
-            tableIsSet: false,
-            asc: 1, 
-            sortedBy: '', 
-            className,
-            tableHeaderData: [],
-            tableRowData: []
-        }
+        {tableIsSet: false, asc: 1, sortedBy: '', className, tableHeaderData: [], tableRowData: []}
     );
 
     useEffect(() => {
@@ -63,14 +55,8 @@ export default function SortableTable({
     return (
         <SortingContext.Provider value={sortState}>
             <table className={className}>
-                <TableHeader 
-                    className={className} 
-                    handleClick={handleClick} 
-                />
-                <TableBody 
-                    className={className} 
-                    formatters={formatters} 
-                />
+                <TableHeader className={className} handleClick={handleClick} />
+                <TableBody className={className} formatters={formatters} />
             </table>
         </SortingContext.Provider>
     );
@@ -84,7 +70,7 @@ SortableTable.propTypes = {
     rows: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
-export function sortingReducer(state, action) {
+export function sortingReducer(state, action) { //lol yep that's it
     if (action.type === UPDATE_SORT) {
         return {...state, ...action.payload};
     }

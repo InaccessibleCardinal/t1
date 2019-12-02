@@ -22,6 +22,5 @@ export default function TableHeader({handleClick}) {
 }
 
 TableHeader.propTypes = {
-    handleClick: PropTypes.func,
-    // headers: PropTypes.arrayOf(PropTypes.object).isRequired
+    handleClick: PropTypes.func
 };
