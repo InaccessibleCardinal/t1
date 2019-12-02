@@ -13,9 +13,8 @@ export default function TableRow({rowData, index, formatters}) {
 
 TableRow.propTypes = {
     formatters: PropTypes.object,
-    index: PropTypes.number.isRequired,
-    rowData: PropTypes.object.isRequired
-}
+    index: PropTypes.number.isRequired
+};
 
 export function generateRowMarkup(item, itemIndex, className, formatters) {
     let keys = Object.keys(item);

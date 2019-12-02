@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect, createContext, useReducer} from 'react';
+import React, {useCallback, useEffect, createContext, useReducer} from 'react';
 import PropTypes from 'prop-types';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
@@ -17,44 +17,57 @@ export default function SortableTable({
     formatters
 }) {
     
-    const [tableIsSet, setTableIsSet] = useState(false);
-    const [tableRowData, setTableRowData] = useState([]);
-    const [tableHeaderData, setTableHeaderData] = useState([]);
-    const [isAsc, setIsAsc] = useState(1);
-    const [sortState, dispatch] = useReducer(sortingReducer, {asc: 1, sortedBy: '', className})
+    const [sortState, dispatch] = useReducer(
+        sortingReducer, 
+        {   
+            tableIsSet: false,
+            asc: 1, 
+            sortedBy: '', 
+            className,
+            tableHeaderData: [],
+            tableRowData: []
+        }
+    );
 
     useEffect(() => {
-
-        if (!tableIsSet) {
-            const updatedRows = initializeTable(headers, rows);
-            setTableHeaderData(headers);
-            setTableRowData(updatedRows);
-            setTableIsSet(true);
+        if (!sortState.tableIsSet) {
+            dispatch({
+                type: UPDATE_SORT, 
+                payload: {
+                    tableRowData: initializeTable(headers, rows), 
+                    tableHeaderData: headers, 
+                    tableIsSet: true
+                }
+            });
         }
         
-    }, [headers, rows, tableIsSet]);
+    }, [headers, rows, sortState]);
 
     const handleClick = useCallback((e) => {
         if (isSortable) {
             let column = getColumnByButtonId(e.target.id);
-            setTableRowData(sortByColumn(column, tableRowData, isAsc));
-            setIsAsc(-1 * isAsc);
-            dispatch({type: UPDATE_SORT, payload: {asc: isAsc, sortedBy: column}});
+            let {tableRowData, asc} = sortState;
+            dispatch({
+                type: UPDATE_SORT, 
+                payload: {
+                    asc: asc * -1, 
+                    sortedBy: column, 
+                    tableRowData: sortByColumn(column, tableRowData, asc * -1)
+                }
+            }); 
         } else {  
             return false;
         }
-    }, [isAsc, isSortable, tableRowData]);
+    }, [isSortable, sortState]);
 
     return (
         <SortingContext.Provider value={sortState}>
             <table className={className}>
                 <TableHeader 
                     className={className} 
-                    headers={tableHeaderData} 
                     handleClick={handleClick} 
                 />
                 <TableBody 
-                    tableRowData={tableRowData} 
                     className={className} 
                     formatters={formatters} 
                 />

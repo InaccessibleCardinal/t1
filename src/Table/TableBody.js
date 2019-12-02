@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import TableRow from './TableRow';
 import {SortingContext} from './index';
 
-export default function TableBody({tableRowData, formatters}) {
-    const {className} = useContext(SortingContext);
+export default function TableBody({formatters}) {
+    const {className, tableRowData} = useContext(SortingContext);
     let tableRowMarkup = [];
     let l = tableRowData.length;
     for (let i = 0; i < l; ++i) {
@@ -28,6 +28,5 @@ export default function TableBody({tableRowData, formatters}) {
 }
 
 TableBody.propTypes = {
-    formatters: PropTypes.object,
-    tableRowData: PropTypes.arrayOf(PropTypes.object).isRequired
+    formatters: PropTypes.object
 };
