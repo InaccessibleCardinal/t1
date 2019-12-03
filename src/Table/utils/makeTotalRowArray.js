@@ -1,4 +1,8 @@
-export default function makeTotalRowArray(totalColumns, tableRowData, headers) {
+export default function makeTotalRowArray(total, tableRowData, headers) {
+    if (!total) {
+        return [];
+    }
+    let {totalColumns} = total;
     let totalRowArray = [];
     //headers, aka columns should be manageable size, so we'll use prototype methods
     headers.forEach((h, i) => {
@@ -24,7 +28,7 @@ export function getTotal(columnId, tableRowData) {
         let value = tableRowData[i][columnId];
         if (process.env.NODE_ENV === 'development') {
             if (typeof value !== 'number') {
-                throw new TypeError('The values in your total need to be numbers.');
+                throw new TypeError('The values in your total columns need to be numbers.');
             }
         }
         total += value;

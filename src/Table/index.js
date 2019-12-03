@@ -27,7 +27,6 @@ export default function SortableTable({
 }) {
 
     const [sortState, dispatch] = useReducer(sortingReducer, initialState);
-
     useEffect(() => {
         const tableRowData = initializeTable(headers, rows);
         dispatch({
@@ -37,7 +36,7 @@ export default function SortableTable({
                 tableRowData, 
                 tableHeaderData: headers,
                 total: {
-                    totalRowArray: makeTotalRowArray(total.totalColumns, tableRowData, headers),
+                    totalRowArray: makeTotalRowArray(total, tableRowData, headers),
                     isMonetary: total.isMonetary
                 }
             }
