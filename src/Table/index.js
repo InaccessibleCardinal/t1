@@ -2,38 +2,48 @@ import React, {useCallback, useEffect, createContext, useReducer} from 'react';
 import PropTypes from 'prop-types';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
+import TableFooter from './TableFooter';
 import utils from './utils/';
 import {UPDATE_SORT} from './constants';
 
-const {getColumnByButtonId, sortByColumn, initializeTable} = utils;
+const {getColumnByButtonId, sortByColumn, initializeTable, makeTotalRowArray} = utils;
 export const SortingContext = createContext();
+export const initialState = {
+    asc: 1, 
+    sortedBy: '', 
+    className: '',
+    tableHeaderData: [], 
+    tableRowData: [], 
+    total: {totalRowArray: [], isMonetary: false}
+};
 
 export default function SortableTable({
     headers, 
     rows, 
     isSortable, 
     className, 
-    formatters
+    formatters,
+    total
 }) {
 
-    const [sortState, dispatch] = useReducer(
-        sortingReducer, 
-        {tableIsSet: false, asc: 1, sortedBy: '', className, tableHeaderData: [], tableRowData: []}
-    );
+    const [sortState, dispatch] = useReducer(sortingReducer, initialState);
 
     useEffect(() => {
-        if (!sortState.tableIsSet) {
-            dispatch({
-                type: UPDATE_SORT, 
-                payload: {
-                    tableRowData: initializeTable(headers, rows), 
-                    tableHeaderData: headers, 
-                    tableIsSet: true
+        const tableRowData = initializeTable(headers, rows);
+        dispatch({
+            type: UPDATE_SORT, 
+            payload: {
+                className,
+                tableRowData, 
+                tableHeaderData: headers,
+                total: {
+                    totalRowArray: makeTotalRowArray(total.totalColumns, tableRowData, headers),
+                    isMonetary: total.isMonetary
                 }
-            });
-        }
+            }
+        });
         
-    }, [headers, rows, sortState]);
+    }, [className, headers, rows, total]);
 
     const handleClick = useCallback((e) => {
         if (isSortable) {
@@ -43,7 +53,7 @@ export default function SortableTable({
                 type: UPDATE_SORT, 
                 payload: {
                     asc: asc * -1, 
-                    sortedBy: column, 
+                    sortedBy: column,
                     tableRowData: sortByColumn(column, tableRowData, asc * -1)
                 }
             }); 
@@ -57,6 +67,7 @@ export default function SortableTable({
             <table className={className}>
                 <TableHeader handleClick={handleClick} />
                 <TableBody formatters={formatters} />
+                {total && <TableFooter />}
             </table>
         </SortingContext.Provider>
     );

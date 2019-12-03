@@ -9,7 +9,7 @@ export default function TableHeaderCell({header, handleClick}) {
     const isActiveHeader = sortedBy === value;
     return (
         <th className={`${className}-header-th`}>
-            <div className={ makeSortIndicatorClassName(asc, isActiveHeader, className)} />
+            <div className={makeSortIndicatorClassName(asc, isActiveHeader, className)} />
             <button 
                 className={`${className}-header-button`} 
                 id={`${BTN_PART}${value}`} 

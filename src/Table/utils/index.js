@@ -1,6 +1,7 @@
 import {BTN_PART} from '../constants';
 import {sortByColumn} from './sortByColumn';
 import {initializeTable} from './initializeTable';
+import makeTotalRowArray from './makeTotalRowArray';
 /**
  * getColumnByButtonId
  * @param {string} buttonId 
@@ -12,7 +13,8 @@ function getColumnByButtonId(buttonId) {
 const UTIL_FUNCS = {
     initializeTable,
     getColumnByButtonId,
-    sortByColumn
+    sortByColumn,
+    makeTotalRowArray
 };
 
 export default UTIL_FUNCS;

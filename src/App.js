@@ -1,7 +1,32 @@
-import React, { useCallback } from 'react';
-import {users} from './data/users';
+import React from 'react';
+// import {users} from './data/users';
+import {albums} from './data/albums';
 import SortableTable from './Table';
 
+const config = {
+    headers: [{value: 'albumId'}, {value: 'title'}, {value: 'id'}, {value: 'url'}, {value: 'thumbnailUrl'}],
+    rows: albums.slice(0, 100),
+    className: 'my-table',
+    isSortable: true,
+    total: {totalColumns: ['albumId', 'id'], monetary: true}
+};
+
+function App() {
+    return (
+        <div className="App">
+            <SortableTable {...config} />
+            {/*
+                <SortableTable {...config} />
+                <SortableTable {...config2} />
+            */}
+        </div>
+    );
+}
+
+export default App;
+
+
+/*
 function UsernameButton({value}) {
     const f = useCallback((e) => {
         console.log('id: ', e.target.id)
@@ -66,15 +91,4 @@ const config2 = {
         pic: (v) => <ImageComp {...v} />
     }
 }
-
-
-function App() {
-    return (
-        <div className="App">
-            <SortableTable {...config} />
-            <SortableTable {...config2} />
-        </div>
-    );
-}
-
-export default App;
+*/
