@@ -1,10 +1,10 @@
+//in practice call this something like 'footer total'
 export default function makeTotalRowArray(total, tableRowData, headers) {
     if (!total) {
         return [];
     }
     let {totalColumns} = total;
     let totalRowArray = [];
-    //headers, aka columns should be manageable size, so we'll use prototype methods
     headers.forEach((h, i) => {
         let o = {index: -1};
         let hValue = h.value; 

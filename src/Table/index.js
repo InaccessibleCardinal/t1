@@ -14,7 +14,7 @@ export const initialState = {
     className: '',
     tableHeaderData: [], 
     tableRowData: [], 
-    total: {totalRowArray: [], isMonetary: false}
+    totalRowArray: []
 };
 
 export default function SortableTable({
@@ -35,10 +35,7 @@ export default function SortableTable({
                 className,
                 tableRowData, 
                 tableHeaderData: headers,
-                total: {
-                    totalRowArray: makeTotalRowArray(total, tableRowData, headers),
-                    isMonetary: total.isMonetary
-                }
+                totalRowArray: makeTotalRowArray(total, tableRowData, headers),
             }
         });
         

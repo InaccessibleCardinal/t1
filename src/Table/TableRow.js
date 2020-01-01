@@ -22,30 +22,23 @@ TableRow.propTypes = {
  * @param {object} formatters 
  */
 export function generateRowMarkup(item, className, formatters) {
-    let keys = Object.keys(item);
     let _id = item._id;
-    let l = keys.length;
-    let markup = [];
-    for (let i = 0; i < l; ++i) {
-        //old school for-loops are faster
-        if (keys[i] !== '_id') { //_id is only used internally, see utils/initializeTable.js
-            let value = item[keys[i]];
+    return Object.keys(item).reduce((acc, currKey, i) => {
+        if (currKey !== '_id') {
+            let value = item[currKey];
             let itemToRender;
-            if (formatters) {
-                if (formatters[keys[i]]) {
-                    itemToRender = formatters[keys[i]](value);
-                } else {
-                    itemToRender = value;
-                }
+            if (formatters && formatters[currKey]) {
+                itemToRender = formatters[currKey](value);
             } else {
                 itemToRender = value;
             }
-            markup.push(
+            acc.push(
                 <td className={`${className}-td`} key={`row_${_id}_item_${i}`}>
                     {itemToRender}
                 </td>
             );
+            return acc;
         }
-    }
-    return markup;
+        return acc;
+    }, []);
 }
