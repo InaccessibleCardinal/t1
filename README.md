@@ -1,4 +1,4 @@
-# A sortable table because the one at work is rubbish
+# A sortable table
 
 Sample Usage:
 
