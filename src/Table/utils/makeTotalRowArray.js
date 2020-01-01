@@ -7,9 +7,9 @@ export default function makeTotalRowArray(total, tableRowData, headers) {
     let totalRowArray = [];
     headers.forEach((h, i) => {
         let o = {index: -1};
-        let hValue = h.value; 
+        let headerValue = h.value; 
         totalColumns.forEach(c => {
-            if (c === hValue) {
+            if (c === headerValue) {
                 o.index = i;
                 o.total = getTotal(c, tableRowData);
             }
@@ -26,7 +26,7 @@ export function getTotal(columnId, tableRowData) {
     //for-loop rather than reduce because tableRowData may be a large array
     for (; i < l; ++i) {
         let value = tableRowData[i][columnId];
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
             if (typeof value !== 'number') {
                 throw new TypeError('The values in your total columns need to be numbers.');
             }

@@ -57,3 +57,7 @@ body {
 .my-table-header-sort-indicator.dsc {
   transform: rotate(180deg);
 }
+
+.my-table-tfoot-span-total.total-2::before {
+  content: "My Total: ";
+}

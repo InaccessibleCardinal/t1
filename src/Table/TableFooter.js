@@ -12,19 +12,20 @@ export default function TableFooter() {
 
 function FooterRow() {
     const {className, totalRowArray} = useContext(SortingContext);
+    let cl = className ? className : '';
+    console.log('TRA: ', totalRowArray)
     const totalRowMarkup = totalRowArray.map((obj, i) => {
         let {index, total} = obj;
         if (index === -1) {
             return (
-                <td key={i} className={`${className}-tfoot-td empty`}></td>
+                <td key={i} className={`${cl}-tfoot-td empty`}></td>
             );
         } else {
             return (
-                <td key={i} className={`${className}-tfoot-td`}>
-                    <span className={`${className}-tfoot-span-total`}>
-                        Total: 
+                <td key={i} className={`${cl}-tfoot-td`}>
+                    <span className={`${cl}-tfoot-span-total total-${i}`}> 
                     </span>
-                    <span className={`${className}-tfoot-span-total value`}>
+                    <span className={`${cl}-tfoot-span-total value`}>
                         {total}
                     </span>
                 </td>
